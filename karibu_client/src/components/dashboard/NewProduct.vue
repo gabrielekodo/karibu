@@ -184,7 +184,7 @@ let product={
 console.log(product);
   this.$store.commit('addProduct',{value:product})
 
-let response=await axios.post('http://localhost:3000/api/sales/products',product)
+let response=await axios.post('/api/sales/products',product)
 console.log(response);
 if(response.data.status==='ok'){
   alert('successful')

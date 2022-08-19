@@ -19,14 +19,14 @@ export default {
   },
 
   async mounted() {
-    let inventory = await axios.get("http://localhost:3000/api/sales/products");
+    let inventory = await axios.get("/api/sales/products");
     console.log("INVENTORY",inventory.data.data);
     // this.$store.state.inventory = inventory.data.data;
     this.$store.commit('setInventory',{value:inventory.data.data})
 
     //Getting all cash clients
     let cash = await axios.get(
-      "http://localhost:3000/api/purchases/cash/customers"
+      "/api/purchases/cash/customers"
     );
 
     console.log(cash.data);
@@ -36,7 +36,7 @@ export default {
 
     //Getting all credit clients
     let credit = await axios.get(
-      "http://localhost:3000/api/purchases/credit/customers"
+      "/api/purchases/credit/customers"
     );
 
     //updating store state of credit sales
@@ -46,7 +46,7 @@ export default {
 
     //fetching all suppliers
     let procurement = await axios.get(
-      "http://localhost:3000/api/purchases/suppliers"
+      "/api/purchases/suppliers"
     );
 
     //updating store state of credit sales

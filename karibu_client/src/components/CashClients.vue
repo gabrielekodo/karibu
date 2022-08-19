@@ -88,7 +88,7 @@ export default {
             return this.$store.getters.cashsalesList;
         },
     },async mounted() {
-    const response = await axios.get("http://localhost:3000/api/reports");
+    const response = await axios.get("/api/reports");
     this.cashSalesTotals =( Object.assign(
       {},
       response.data.data.cashSales[0]
@@ -101,7 +101,7 @@ export default {
      async  onDelete(id) {
             // console.log(id);
             const res = await axios.delete(
-        `http://localhost:3000/api/purchases/cash/customers/${id}`
+        `/api/purchases/cash/customers/${id}`
       );
       console.log(res);
             this.$store.dispatch("deleteSale", { value: id });

@@ -92,7 +92,7 @@ export default {
      async   deleteSupplier(id) {
             // console.log(id);
              const res = await axios.delete(
-        `http://localhost:3000/api/purchases/suppliers/${id}`
+        `/api/purchases/suppliers/${id}`
       );
       console.log("deleted....", res.data);
             this.$store.commit("deleteSupplier", { value: id });

@@ -282,7 +282,7 @@ export default {
       };
 
       let response = await axios.post(
-        "http://localhost:3000/api/purchases/credit/customers",
+        "/api/purchases/credit/customers",
         creditSale
       );
       if (response.data.status === "ok") {

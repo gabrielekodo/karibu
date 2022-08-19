@@ -88,7 +88,7 @@ export default {
        async deleteProduct(id) {
             // console.log(id);
              const res = await axios.delete(
-        `http://localhost:3000/api/sales/products/${id}`
+        `/api/sales/products/${id}`
       );
       console.log("deleted....", res.data);
 

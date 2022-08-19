@@ -81,7 +81,7 @@ export default {
       this.authPending = true;
 
       // console.log(onSubmit());
-      await axios.post("http://localhost:3000/api/auth/login", {
+      await axios.post("/api/auth/login", {
         email: this.email,
         password: this.password,
       })

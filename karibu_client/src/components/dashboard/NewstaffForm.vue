@@ -145,7 +145,7 @@ export default {
         }
       //   
       //   //post request
-      let response=await axios.post('http://localhost:3000/api/auth/createUser',user)
+      let response=await axios.post('/api/auth/createUser',user)
       // console.log(response);
       if(response.data.status==='ok'){
         alert('user added successfully')

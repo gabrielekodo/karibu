@@ -187,7 +187,7 @@ supplierContact:this.supplierContact,
 
       //posting newSupply
       let response = await axios.post(
-      "http://localhost:3000/api/purchases/suppliers",newSupply
+      "/api/purchases/suppliers",newSupply
     );
   if(response.data.status==='ok'){
      

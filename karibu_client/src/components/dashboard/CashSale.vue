@@ -198,7 +198,7 @@ console.log(this.tonnage)
         }
         this.$store.commit('addCashSale',{value:sale})
         //post request
-      let response=await axios.post('http://localhost:3000/api/purchases/cash/customers',sale)
+      let response=await axios.post('/api/purchases/cash/customers',sale)
       // console.log(response);
       if(response.data.status==='ok'){
         alert('sale added successfully')
