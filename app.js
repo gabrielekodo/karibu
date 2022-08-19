@@ -7,7 +7,7 @@ const path = require("path");
 const database = require("./config/db");
 require("dotenv").config({ path: "./config/config.env" });
 const passport = require("passport");
-const path = require("path");
+
 //connect Database
 database();
 
@@ -35,11 +35,7 @@ const expressSession = require("express-session")({
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-if ((process.env.NODE_ENV = "production")) {
-  app.use(express.static("karibu_client/dist"));
-} else {
-  app.use(express.static("public"));
-}
+
 app.use(expressSession);
 app.use(cors());
 app.use(morgan("dev"));
@@ -56,11 +52,18 @@ app.use("/api/purchases", purchaseRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/sales", productsRoutes);
 app.use("/api/reports", reportRoutes);
+if ((process.env.NODE_ENV = "production")) {
+  app.use(express.static("karibu_client/dist"));
+  // handling non existing routes
+  app.get("*", (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname, "karibu_client", "dist", "index.html")
+    );
+  });
+} else {
+  app.use(express.static("public"));
+}
 
-// handling non existing routes
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "karibu_client", "dist", "index.html"));
-});
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
