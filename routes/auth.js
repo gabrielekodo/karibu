@@ -1,59 +1,59 @@
-const express = require("express");
-const passport = require("passport");
-const jwt = require("jsonwebtoken");
-const Employee = require("../models/EmployeeModel");
-const Procurement = require("../models/ProcumentModel");
-const router = express.Router();
+const express = require('express')
+const passport = require('passport')
+const jwt = require('jsonwebtoken')
+const Employee = require('../models/EmployeeModel')
+const Procurement = require('../models/ProcumentModel')
+const router = express.Router()
 
 //verify token
 const verifyToken = (req, res, next) => {
   //get auth header value
-  const bearerHeader = req.headers["authorization"];
+  const bearerHeader = req.headers['authorization']
 
   //check if bearer is undefined
-  if (typeof bearerHeader !== "undefined") {
+  if (typeof bearerHeader !== 'undefined') {
     //split at space
-    const bearer = bearerHeader.split(" ");
+    const bearer = bearerHeader.split(' ')
 
     //get token from array
-    const bearerToken = bearer[1];
+    const bearerToken = bearer[1]
 
     //set the token
-    req.token = bearerToken;
+    req.token = bearerToken
     //next middleware
-    next();
+    next()
   } else {
     //forbidden
     res.status(403).json({
-      status: "fail",
-      message: "access denied",
-    });
+      status: 'fail',
+      message: 'access denied',
+    })
   }
-};
-router.get("/login", verifyToken, (req, res) => {
-  jwt.verify(req.token, "secretkey", (err, authData) => {
+}
+router.get('/login', verifyToken, (req, res) => {
+  jwt.verify(req.token, 'secretkey', (err, authData) => {
     if (err) {
-      res.sendStatus(403);
+      res.sendStatus(403)
     } else {
       res.json({
-        status: "ok",
-        message: "log in or register to access resource",
-      });
+        status: 'ok',
+        message: 'log in or register to access resource',
+      })
     }
-  });
-});
+  })
+})
 
-router.post("/", (req, res) => {
+router.post('/', (req, res) => {
   res.json({
-    status: "ok",
-    message: "welcome",
+    status: 'ok',
+    message: 'welcome',
     data: req.body,
-  });
-});
+  })
+})
 
 //create EMPLOYEE
-router.post("/createUser", async (req, res) => {
-  console.log(req.body);
+router.post('/createUser', async (req, res) => {
+  
   try {
     await Employee.register(
       {
@@ -66,77 +66,75 @@ router.post("/createUser", async (req, res) => {
         branch: req.body.branch,
       },
       req.body.password
-    );
+    )
 
-    res.status(200).json({ status: "ok", user: req.body });
+    res.status(200).json({ status: 'ok', user: req.body })
   } catch (error) {
     res.status(500).json({
-      status: "fail",
-      message: "something went wrong",
-    });
-    console.error(error);
+      status: 'fail',
+      message: 'something went wrong',
+    })
+    console.error(error)
   }
-});
+})
 
 router.post(
-  "/login",
-  passport.authenticate("local", { failureRedirect: "/api/auth/failurejson" }),
+  '/login',
+  passport.authenticate('local', { failureRedirect: '/api/auth/failurejson' }),
   (req, res) => {
-    console.log("&&&&&&&&&&&&&&&&&&&& LOGIN REQ BODY ", req.body);
+    console.log('&&&&&&&&&&&&&&&&&&&& LOGIN REQ BODY ', req.body)
     //giving a session to the user when successfully logged in.
-    req.session.user = req.user;
-    let user = req.session.user;
+    req.session.user = req.user
+    let user = req.session.user
 
-    jwt.sign({ user }, "secretkey", (err, token) => {
+    jwt.sign({ user }, 'secretkey', (err, token) => {
       res.json({
         token,
         user,
-      });
-    });
+      })
+    })
   }
-);
+)
 
 //failure login
-router.get("/failurejson", (req, res) => {
+router.get('/failurejson', (req, res) => {
   res.status(200).json({
-    status: "fail",
-    message: "incorrect email or password",
-  });
-});
+    status: 'fail',
+    message: 'incorrect email or password',
+  })
+})
 
-//GET REQUEST TO /
-// router.route("/admin").get((req, res) => {
-//   res.render("createAccount", { title: "Create Account" });
-// });
+// GET REQUEST TO /
+router.route('/admin').get((req, res) => {
+  res.render('createAccount', { title: 'Create Account' })
+})
 
-
-router.route("/employees").get(async (req, res) => {
+router.route('/employees').get(async (req, res) => {
   try {
-    const employees = await Employee.find({});
+    const employees = await Employee.find({})
 
     res.status(200).json({
-      status: "success",
+      status: 'success',
       results: employees.length,
       data: employees,
-    });
+    })
   } catch (error) {
-    
     res.status(500).json({
-      status: "fail",
-      message: "something went wrong....",
-    });
+      status: 'fail',
+      message: 'something went wrong....',
+    })
   }
-});
+})
 
 // Route to Log out
-router.get("/logout", (req, res, next) => {
+router.get('/logout', (req, res, next) => {
   req.session.destroy((err) => {
     if (err) {
-      return next(err);
+      return next(err)
     }
 
-    res.status(204).json({ status: "ok", data: null });
-  });
-});
+    res.status(204).json({ status: 'ok', data: null })
+  })
+})
 
-module.exports = router;
+module.exports = router
