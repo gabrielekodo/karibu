@@ -7,10 +7,10 @@ module.exports = {
   configureWebpack: {
     devServer: {
       proxy: {
-        "/api": {
-          target: "http://localhost:5000",
+        '/api': {
+          target: 'https://karibu-le0x.onrender.com',
         },
       },
     },
   },
-};
+}

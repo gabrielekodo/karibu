@@ -2,3 +2,5 @@ node_modules
 config/config.env
 
 karibu_client/node_modules
+# Local Netlify folder
+.netlify
