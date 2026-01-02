@@ -1,3 +1,4 @@
+const serverless = require('serverless-http')
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
@@ -65,3 +66,5 @@ const port = process.env.PORT || 3000
 app.listen(port, () => {
   console.log(`Server listening on port: ${port}`)
 })
+
+module.exports.handler = serverless(app)

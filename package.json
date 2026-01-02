@@ -8,8 +8,8 @@
     "server": "nodemon app.js --ignore 'karibu_client/'",
     "client": "npm run serve --prefix karibu_client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "start":"node app.js",
-    "build":"npm install --prefix karibu_client && npm run build --prefix karibu_client"
+    "start": "node app.js",
+    "build": "npm install --prefix karibu_client && npm run build --prefix karibu_client"
   },
   "keywords": [
     "kgl",
@@ -26,14 +26,15 @@
     "connect-ensure-login": "^0.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
-    "express": "^4.18.1",
+    "express": "^4.22.1",
     "express-session": "^1.17.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.6",
     "morgan": "^1.10.0",
     "passport": "^0.6.0",
     "passport-local-mongoose": "^7.1.2",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "serverless-http": "^4.0.0"
   },
   "devDependencies": {
     "concurrently": "^7.2.2",
